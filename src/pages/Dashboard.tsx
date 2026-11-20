@@ -14,25 +14,13 @@ import {
   TrendingUp,
   Target,
   Clock,
-  Settings2,
-  Eye,
-  EyeOff,
-  Droplet,
-  Dumbbell,
 } from 'lucide-react';
-
-export interface WidgetPreferences {
-  water: boolean;
-  pomodoro: boolean;
-  fitness: boolean;
-}
 
 export const Dashboard: React.FC = () => {
   const { currentUser } = useAuth();
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isWidgetMenuOpen, setIsWidgetMenuOpen] = useState(false);
 
   const todayStr = new Date().toISOString().split('T')[0];
 
@@ -45,11 +33,6 @@ export const Dashboard: React.FC = () => {
   const [waterTarget, setWaterTarget] = useState<number>(() => {
     const saved = localStorage.getItem('trackive_water_target');
     return saved ? Number(saved) : 2500;
-  });
-
-  const [widgetPrefs, setWidgetPrefs] = useState<WidgetPreferences>(() => {
-    const saved = localStorage.getItem('trackive_widget_prefs');
-    return saved ? JSON.parse(saved) : { water: true, pomodoro: true, fitness: true };
   });
 
   useEffect(() => {
@@ -78,12 +61,6 @@ export const Dashboard: React.FC = () => {
     loadData();
   }, [currentUser]);
 
-  const toggleWidget = (key: keyof WidgetPreferences) => {
-    const updated = { ...widgetPrefs, [key]: !widgetPrefs[key] };
-    setWidgetPrefs(updated);
-    localStorage.setItem('trackive_widget_prefs', JSON.stringify(updated));
-  };
-
   const handleToggle = async (habitId?: string, currentCompleted?: boolean) => {
     if (!currentUser || !habitId) return;
     try {
@@ -100,52 +77,16 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-8 pb-10">
-      {/* Top Header & Actions */}
+      {/* Top Header & Add Habit Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white tracking-tight">Dashboard Summary</h1>
           <p className="text-slate-400 text-sm mt-1">
-            Track daily active habits, customize widgets, and maintain consistency.
+            Track daily active habits and maintain consistency.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <button
-              onClick={() => setIsWidgetMenuOpen(!isWidgetMenuOpen)}
-              className="flex items-center gap-2 px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700/80 border border-slate-700/80 rounded-xl text-slate-300 font-semibold text-xs transition-colors cursor-pointer"
-            >
-              <Settings2 className="w-4 h-4 text-teal-400" /> Customize Widgets
-            </button>
-
-            {isWidgetMenuOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-20 overflow-hidden">
-                <div className="px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-700/60">
-                  Toggle Widgets
-                </div>
-                {(Object.keys(widgetPrefs) as Array<Extract<keyof WidgetPreferences, string>>).map((key) => (
-                  <button
-                    key={key}
-                    onClick={() => toggleWidget(key)}
-                    className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-slate-700/50 text-xs text-slate-200 capitalize cursor-pointer transition-colors"
-                  >
-                    <span className="flex items-center gap-2">
-                      {key === 'water' && <Droplet className="w-3.5 h-3.5 text-cyan-400" />}
-                      {key === 'pomodoro' && <Clock className="w-3.5 h-3.5 text-amber-400" />}
-                      {key === 'fitness' && <Dumbbell className="w-3.5 h-3.5 text-emerald-400" />}
-                      {key} Tracker
-                    </span>
-                    {widgetPrefs[key] ? (
-                      <Eye className="w-4 h-4 text-teal-400" />
-                    ) : (
-                      <EyeOff className="w-4 h-4 text-slate-600" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
+        <div>
           <button
             onClick={() => setIsModalOpen(true)}
             className="flex items-center gap-2 px-4 py-2.5 bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold rounded-xl text-xs transition-all shadow-lg shadow-teal-500/10 cursor-pointer"
@@ -155,7 +96,7 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* 1. Today's Active Habits (Placed at the Top) */}
+      {/* 1. Today's Active Habits (At the Top) */}
       <div className="bg-slate-800 border border-slate-700/80 rounded-2xl p-6 shadow-xl space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
@@ -246,26 +187,22 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. Customizable Category Trackers Grid */}
-      {(widgetPrefs.water || widgetPrefs.pomodoro || widgetPrefs.fitness) && (
-        <div className="space-y-4">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <Clock className="w-5 h-5 text-cyan-400" /> Quick Category Trackers & Tools
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {widgetPrefs.water && (
-              <WaterTracker
-                currentValue={waterAmount}
-                targetValue={waterTarget}
-                onUpdate={(val) => setWaterAmount(val)}
-                onTargetChange={(newTarget) => setWaterTarget(newTarget)}
-              />
-            )}
-            {widgetPrefs.pomodoro && <PomodoroTimer />}
-            {widgetPrefs.fitness && <FitnessTracker />}
-          </div>
+      {/* 3. Quick Category Trackers & Tools */}
+      <div className="space-y-4">
+        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <Clock className="w-5 h-5 text-cyan-400" /> Quick Category Trackers & Tools
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <WaterTracker
+            currentValue={waterAmount}
+            targetValue={waterTarget}
+            onUpdate={(val) => setWaterAmount(val)}
+            onTargetChange={(newTarget) => setWaterTarget(newTarget)}
+          />
+          <PomodoroTimer />
+          <FitnessTracker />
         </div>
-      )}
+      </div>
 
       {/* Habit Creation Modal */}
       <HabitModal
