@@ -38,9 +38,9 @@ export const Register: React.FC = () => {
     <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-slate-800 border border-slate-700 rounded-xl p-8 shadow-xl">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center font-bold text-slate-900 text-xl mx-auto mb-3">HF</div>
+          <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center font-bold text-slate-900 text-xl mx-auto mb-3">TR</div>
           <h2 className="text-2xl font-bold text-white">Create Account</h2>
-          <p className="text-slate-400 text-sm mt-1">Start your journey with HabitFlow</p>
+          <p className="text-slate-400 text-sm mt-1">Start your journey with Trackive</p>
         </div>
 
         {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">{error}</div>}
