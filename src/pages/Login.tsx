@@ -41,7 +41,7 @@ export const Login: React.FC = () => {
         <div className="text-center mb-8">
           <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center font-bold text-slate-900 text-xl mx-auto mb-3">HF</div>
           <h2 className="text-2xl font-bold text-white">Welcome Back</h2>
-          <p className="text-slate-400 text-sm mt-1">Sign in to your HabitFlow account</p>
+          <p className="text-slate-400 text-sm mt-1">Sign in to your Trackive account</p>
         </div>
 
         {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">{error}</div>}
