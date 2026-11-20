@@ -133,3 +133,5 @@ export const deleteHabit = async (userId: string, habitId: string) => {
   const habitRef = doc(db, 'users', userId, 'habits', habitId);
   await deleteDoc(habitRef);
 };
+
+export const getHabits = getUserHabits;

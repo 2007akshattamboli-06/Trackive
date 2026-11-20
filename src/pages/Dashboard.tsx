@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { getUserHabits, toggleHabitCompletion } from '../services/habitService';
+import { getHabits, toggleHabitCompletion } from '../services/habitService';
 import type { Habit } from '../types/habit';
 import { WaterTracker } from '../components/trackers/WaterTracker';
 import { PomodoroTimer } from '../components/trackers/PomodoroTimer';
@@ -64,7 +64,7 @@ export const Dashboard: React.FC = () => {
     if (!currentUser) return;
     setLoading(true);
     try {
-      const data = await getUserHabits(currentUser.uid);
+      const data = await getHabits(currentUser.uid);
       setHabits(data || []);
     } catch (err) {
       console.error('Error fetching habits:', err);
