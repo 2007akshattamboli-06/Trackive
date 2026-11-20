@@ -2,10 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default: Professional Dark Theme (Midnight Navy) */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 body {
-  background-color: #0f172a;
-  color: #f1f5f9;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  background-color: #0f172a;
+  color: #f8fafc;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Professional Light Theme (Crisp Daylight) */
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="light"] body {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Safe Surface Overrides for Light Mode */
+[data-theme="light"] .bg-slate-900 {
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .bg-slate-900\/50,
+[data-theme="light"] .bg-slate-900\/60 {
+  background-color: #f8fafc !important;
+}
+
+[data-theme="light"] .bg-slate-800 {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .border-slate-700,
+[data-theme="light"] .border-slate-700\/80,
+[data-theme="light"] .border-slate-700\/60,
+[data-theme="light"] .border-slate-700\/50 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Safe Typography Overrides for Light Mode */
+[data-theme="light"] .text-white {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .text-slate-100,
+[data-theme="light"] .text-slate-200,
+[data-theme="light"] .text-slate-300 {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .text-slate-400 {
+  color: #64748b !important;
+}
+
+/* Keep Teal Primary Buttons White Text in Both Themes */
+[data-theme="light"] .bg-teal-500.text-slate-900,
+[data-theme="light"] .bg-teal-500 {
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .text-teal-400 {
+  color: #0d9488 !important;
 }
