@@ -35,15 +35,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
       <div className="flex items-center justify-between px-2 py-4">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-teal-500 flex items-center justify-center font-bold text-slate-900">
-            HF
+            TR
           </div>
           <div>
-            <h1 className="font-bold text-lg text-white">HabitFlow</h1>
+            <h1 className="font-bold text-lg text-white">Trackive</h1>
             <p className="text-xs text-slate-400">Better Habits, A Better You</p>
           </div>
         </div>
 
-        {/* Mobile Close Button */}
         {onClose && (
           <button
             onClick={onClose}

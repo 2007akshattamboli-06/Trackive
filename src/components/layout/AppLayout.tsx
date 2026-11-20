@@ -11,7 +11,7 @@ export const AppLayout: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center text-teal-400 font-bold">
-        Loading HabitFlow...
+        Loading Trackive...
       </div>
     );
   }
@@ -22,7 +22,7 @@ export const AppLayout: React.FC = () => {
 
   return (
     <div className="flex flex-col md:flex-row h-screen w-screen bg-slate-900 text-slate-100 overflow-hidden">
-      {/* Mobile Top Header with Three-Line Hamburger Menu */}
+      {/* Mobile Top Header */}
       <header className="md:hidden flex items-center gap-3 px-4 py-3 bg-slate-800 border-b border-slate-700 shrink-0 z-30">
         <button
           onClick={() => setMobileMenuOpen(true)}
@@ -33,9 +33,9 @@ export const AppLayout: React.FC = () => {
         </button>
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-md bg-teal-500 flex items-center justify-center font-bold text-sm text-slate-900">
-            HF
+            TR
           </div>
-          <span className="font-bold text-base text-white">HabitFlow</span>
+          <span className="font-bold text-base text-white">Trackive</span>
         </div>
       </header>
 
@@ -47,12 +47,10 @@ export const AppLayout: React.FC = () => {
       {/* Mobile Slide-Over Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex">
-          {/* Dark Backdrop */}
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileMenuOpen(false)}
           />
-          {/* Drawer Content */}
           <div className="relative z-10 h-full">
             <Sidebar onClose={() => setMobileMenuOpen(false)} />
           </div>
