@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AppLayout } from './components/layout/AppLayout';
@@ -18,7 +18,7 @@ export const App: React.FC = () => {
   return (
     <AuthProvider>
       <ThemeProvider>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -34,7 +34,7 @@ export const App: React.FC = () => {
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </ThemeProvider>
     </AuthProvider>
   );
